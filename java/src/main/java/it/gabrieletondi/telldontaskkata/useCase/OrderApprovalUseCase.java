@@ -18,6 +18,12 @@ public class OrderApprovalUseCase {
         final Order order = orderRepository.getById(request.getOrderId());
         boolean isApprovedRequest = request.isApproved();
 
+        approve(order, isApprovedRequest);
+
+        orderRepository.save(order);
+    }
+
+    private static void approve(Order order, boolean isApprovedRequest) {
         if (order.isShipped()) {
             throw new ShippedOrdersCannotBeChangedException();
         }
@@ -29,9 +35,7 @@ public class OrderApprovalUseCase {
         if (isApprovedRequest && order.isApproved()) {
             throw new ApprovedOrderCannotBeRejectedException();
         }
-
         order.setStatus(isApprovedRequest ? OrderStatus.APPROVED : OrderStatus.REJECTED);
-        orderRepository.save(order);
     }
 
 }
