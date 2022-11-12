@@ -1,5 +1,9 @@
 package it.gabrieletondi.telldontaskkata.domain;
 
+import it.gabrieletondi.telldontaskkata.exception.ApprovedOrderCannotBeRejectedException;
+import it.gabrieletondi.telldontaskkata.exception.RejectedOrderCannotBeApprovedException;
+import it.gabrieletondi.telldontaskkata.exception.ShippedOrdersCannotBeChangedException;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -12,6 +16,21 @@ public class Order {
     private BigDecimal tax;
     private OrderStatus status;
     private int id;
+
+    public static void approve(Order order, boolean isApprovedRequest) {
+        if (order.isShipped()) {
+            throw new ShippedOrdersCannotBeChangedException();
+        }
+
+        if (isApprovedRequest && order.isRejected()) {
+            throw new RejectedOrderCannotBeApprovedException();
+        }
+
+        if (isApprovedRequest && order.isApproved()) {
+            throw new ApprovedOrderCannotBeRejectedException();
+        }
+        order.setStatus(isApprovedRequest ? APPROVED : REJECTED);
+    }
 
     public BigDecimal getTotal() {
         return total;
