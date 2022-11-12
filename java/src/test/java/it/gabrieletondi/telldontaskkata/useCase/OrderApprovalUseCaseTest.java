@@ -20,7 +20,6 @@ public class OrderApprovalUseCaseTest {
     public void approvedExistingOrder(){
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.CREATED);
-        initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
         OrderApprovalRequest request = new OrderApprovalRequest();
@@ -37,7 +36,6 @@ public class OrderApprovalUseCaseTest {
     public void rejectedExistingOrder(){
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.CREATED);
-        initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
         OrderApprovalRequest request = new OrderApprovalRequest();
@@ -54,7 +52,6 @@ public class OrderApprovalUseCaseTest {
     public void cannotApproveRejectedOrder(){
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.REJECTED);
-        initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
         OrderApprovalRequest request = new OrderApprovalRequest();
@@ -69,7 +66,6 @@ public class OrderApprovalUseCaseTest {
     public void cannotRejectApprovedOrder(){
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.APPROVED);
-        initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
         OrderApprovalRequest request = new OrderApprovalRequest();
@@ -84,7 +80,6 @@ public class OrderApprovalUseCaseTest {
     public void shippedOrdersCannotBeApproved(){
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.SHIPPED);
-        initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
         OrderApprovalRequest request = new OrderApprovalRequest();
@@ -99,7 +94,6 @@ public class OrderApprovalUseCaseTest {
     public void shippedOrdersCannotBeRejected(){
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.SHIPPED);
-        initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
         OrderApprovalRequest request = new OrderApprovalRequest();
