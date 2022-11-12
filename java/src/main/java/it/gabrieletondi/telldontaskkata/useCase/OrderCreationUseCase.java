@@ -40,7 +40,7 @@ public class OrderCreationUseCase {
                 final BigDecimal unitaryTax = product.getUnitaryTax();
                 final BigDecimal unitaryTaxedAmount = product.getUnitaryTaxedAmount();
                 final BigDecimal taxedAmount = product.getTaxedAmount(itemRequest.getQuantity());
-                final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
+                final BigDecimal taxAmount = getTaxAmount(itemRequest, unitaryTax);
 
                 final OrderItem orderItem = new OrderItem();
                 orderItem.setProduct(product);
@@ -55,6 +55,10 @@ public class OrderCreationUseCase {
         }
 
         orderRepository.save(order);
+    }
+
+    private static BigDecimal getTaxAmount(SellItemRequest itemRequest, BigDecimal unitaryTax) {
+        return unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
     }
 
 }
