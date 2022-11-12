@@ -65,15 +65,15 @@ public class Order {
         this.id = id;
     }
 
-    private boolean isApproved() {
+   public boolean isApproved() {
         return status.equals(APPROVED);
     }
 
-    private boolean isRejected() {
+    public boolean isRejected() {
         return status.equals(REJECTED);
     }
 
-    private boolean isShipped() {
+    public boolean isShipped() {
         return status.equals(SHIPPED);
     }
 
