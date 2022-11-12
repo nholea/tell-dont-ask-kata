@@ -19,6 +19,11 @@ public class OrderItem {
         this.taxedAmount = product.getTaxedAmount(quantity);
         this.tax = product.getTaxAmount(quantity);
     }
+
+    public static OrderItem create(SellItemRequest itemRequest, Product product) {
+        return new OrderItem(product, itemRequest.getQuantity());
+    }
+
     public Product getProduct() {
         return product;
     }

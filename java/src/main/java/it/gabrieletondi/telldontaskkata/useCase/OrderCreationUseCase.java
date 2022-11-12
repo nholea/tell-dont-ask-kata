@@ -2,14 +2,10 @@ package it.gabrieletondi.telldontaskkata.useCase;
 
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderItem;
-import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
 import it.gabrieletondi.telldontaskkata.domain.Product;
 import it.gabrieletondi.telldontaskkata.exception.UnknownProductException;
 import it.gabrieletondi.telldontaskkata.repository.OrderRepository;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import static java.math.BigDecimal.valueOf;
 
@@ -32,11 +28,10 @@ public class OrderCreationUseCase {
                 throw new UnknownProductException();
             }
             else {
-                final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity());
+                final OrderItem orderItem = OrderItem.create(itemRequest, product);
                 order.addItem(orderItem);
             }
         }
-
         orderRepository.save(order);
     }
 
