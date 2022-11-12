@@ -117,4 +117,10 @@ public class Order {
         }
         status = SHIPPED;
     }
+
+    public void addItem(OrderItem item){
+        items.add(item);
+        total = total.add(item.getTaxedAmount());
+        tax = tax.add(item.getTax());
+    }
 }
