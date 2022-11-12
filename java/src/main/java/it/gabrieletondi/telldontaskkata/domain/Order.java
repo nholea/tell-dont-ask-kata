@@ -1,8 +1,6 @@
 package it.gabrieletondi.telldontaskkata.domain;
 
-import it.gabrieletondi.telldontaskkata.exception.ApprovedOrderCannotBeRejectedException;
-import it.gabrieletondi.telldontaskkata.exception.RejectedOrderCannotBeApprovedException;
-import it.gabrieletondi.telldontaskkata.exception.ShippedOrdersCannotBeChangedException;
+import it.gabrieletondi.telldontaskkata.exception.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -90,5 +88,20 @@ public class Order {
             throw new ApprovedOrderCannotBeRejectedException();
         }
         status = isApprovedRequest ? APPROVED : REJECTED;
+    }
+
+    public void ship() {
+        if (isCreated() || isRejected()) {
+            throw new OrderCannotBeShippedException();
+        }
+
+        if (isShipped()) {
+            throw new OrderCannotBeShippedTwiceException();
+        }
+        status = SHIPPED;
+    }
+
+    public boolean isCreated() {
+        return status.equals(CREATED);
     }
 }
