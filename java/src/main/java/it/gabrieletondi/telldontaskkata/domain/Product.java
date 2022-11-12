@@ -45,11 +45,16 @@ public class Product {
 
     public BigDecimal getUnitaryTaxedAmount() {
         BigDecimal unitaryTax = getUnitaryTax();
+
         return price.add(unitaryTax)
                 .setScale(2, HALF_UP);
     }
 
-    public BigDecimal getTaxedAmount(SellItemRequest itemRequest, BigDecimal unitaryTaxedAmount) {
-        return unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
+    public BigDecimal getTaxedAmount(int quantity) {
+        BigDecimal unitaryTaxedAmount = getUnitaryTaxedAmount();
+
+        return unitaryTaxedAmount.multiply(
+                BigDecimal.valueOf(quantity)
+                .setScale(2, HALF_UP));
     }
 }

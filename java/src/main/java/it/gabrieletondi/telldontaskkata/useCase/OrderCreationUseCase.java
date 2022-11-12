@@ -39,8 +39,9 @@ public class OrderCreationUseCase {
             else {
                 final BigDecimal unitaryTax = product.getUnitaryTax();
                 final BigDecimal unitaryTaxedAmount = product.getUnitaryTaxedAmount();
-                final BigDecimal taxedAmount = product.getTaxedAmount(itemRequest, unitaryTaxedAmount);
+                final BigDecimal taxedAmount = product.getTaxedAmount(itemRequest.getQuantity());
                 final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
+
                 final OrderItem orderItem = new OrderItem();
                 orderItem.setProduct(product);
                 orderItem.setQuantity(itemRequest.getQuantity());
