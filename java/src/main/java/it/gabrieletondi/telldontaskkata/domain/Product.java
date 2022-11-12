@@ -34,10 +34,9 @@ public class Product {
         this.category = category;
     }
 
-    public BigDecimal getUnitaryTax(Product product) {
-        return product.getPrice()
-                .divide(valueOf(100))
-                .multiply(product.getCategory()
+    public BigDecimal getUnitaryTax() {
+        return price.divide(valueOf(100))
+                .multiply(category
                         .getTaxPercentage())
                 .setScale(2, HALF_UP);
     }

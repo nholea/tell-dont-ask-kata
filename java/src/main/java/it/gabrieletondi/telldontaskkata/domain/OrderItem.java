@@ -46,7 +46,7 @@ public class OrderItem {
     }
 
     public static OrderItem createOrderItem(SellItemRequest itemRequest, Product product) {
-        final BigDecimal unitaryTax = product.getUnitaryTax(product);
+        final BigDecimal unitaryTax = product.getUnitaryTax();
         final BigDecimal unitaryTaxedAmount = product.getPrice().add(unitaryTax).setScale(2, HALF_UP);
         final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
         final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
