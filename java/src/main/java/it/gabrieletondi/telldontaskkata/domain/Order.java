@@ -63,16 +63,24 @@ public class Order {
         this.id = id;
     }
 
-   public boolean isApproved() {
+   private boolean isApproved() {
         return status.equals(APPROVED);
     }
 
-    public boolean isRejected() {
+    private boolean isRejected() {
         return status.equals(REJECTED);
     }
 
-    public boolean isShipped() {
+    private boolean isShipped() {
         return status.equals(SHIPPED);
+    }
+
+    private boolean isCreatedOrRejected() {
+        return isCreated() || isRejected();
+    }
+
+    private boolean isCreated() {
+        return status.equals(CREATED);
     }
 
     public void approve(boolean isApprovedRequest) {
@@ -99,13 +107,5 @@ public class Order {
             throw new OrderCannotBeShippedTwiceException();
         }
         status = SHIPPED;
-    }
-
-    private boolean isCreatedOrRejected() {
-        return isCreated() || isRejected();
-    }
-
-    public boolean isCreated() {
-        return status.equals(CREATED);
     }
 }
