@@ -23,7 +23,7 @@ public class OrderShipmentUseCase {
     public void run(OrderShipmentRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
-        if (order.getStatus().equals(CREATED) || order.getStatus().equals(REJECTED)) {
+        if (isCreated(order) || order.getStatus().equals(REJECTED)) {
             throw new OrderCannotBeShippedException();
         }
 
@@ -35,5 +35,9 @@ public class OrderShipmentUseCase {
 
         order.setStatus(OrderStatus.SHIPPED);
         orderRepository.save(order);
+    }
+
+    private static boolean isCreated(Order order) {
+        return order.getStatus().equals(CREATED);
     }
 }
