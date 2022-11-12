@@ -25,12 +25,16 @@ public class OrderApprovalUseCase {
             throw new RejectedOrderCannotBeApprovedException();
         }
 
-        if (!request.isApproved() && order.getStatus().equals(OrderStatus.APPROVED)) {
+        if (!request.isApproved() && isApproved(order)) {
             throw new ApprovedOrderCannotBeRejectedException();
         }
 
         order.setStatus(request.isApproved() ? OrderStatus.APPROVED : OrderStatus.REJECTED);
         orderRepository.save(order);
+    }
+
+    private static boolean isApproved(Order order) {
+        return order.getStatus().equals(OrderStatus.APPROVED);
     }
 
     private static boolean isRejected(Order order) {
