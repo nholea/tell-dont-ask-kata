@@ -91,7 +91,7 @@ public class Order {
     }
 
     public void ship() {
-        if (isCreated() || isRejected()) {
+        if (isCreatedOrRejected()) {
             throw new OrderCannotBeShippedException();
         }
 
@@ -99,6 +99,10 @@ public class Order {
             throw new OrderCannotBeShippedTwiceException();
         }
         status = SHIPPED;
+    }
+
+    private boolean isCreatedOrRejected() {
+        return isCreated() || isRejected();
     }
 
     public boolean isCreated() {
