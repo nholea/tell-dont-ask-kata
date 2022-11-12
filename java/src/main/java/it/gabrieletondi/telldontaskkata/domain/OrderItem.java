@@ -4,9 +4,6 @@ import it.gabrieletondi.telldontaskkata.useCase.SellItemRequest;
 
 import java.math.BigDecimal;
 
-import static java.math.BigDecimal.valueOf;
-import static java.math.RoundingMode.HALF_UP;
-
 public class OrderItem {
     private final Product product;
     private final int quantity;

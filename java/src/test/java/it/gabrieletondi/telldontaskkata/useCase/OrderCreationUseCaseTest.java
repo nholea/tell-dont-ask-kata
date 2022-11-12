@@ -33,7 +33,7 @@ public class OrderCreationUseCaseTest {
     private final OrderCreationUseCase useCase = new OrderCreationUseCase(orderRepository, productCatalog);
 
     @Test
-    public void sellMultipleItems() throws Exception {
+    public void sellMultipleItems(){
         SellItemRequest saladRequest = new SellItemRequest();
         saladRequest.setProductName("salad");
         saladRequest.setQuantity(2);
@@ -68,7 +68,7 @@ public class OrderCreationUseCaseTest {
     }
 
     @Test
-    public void unknownProduct() throws Exception {
+    public void unknownProduct(){
         SellItemsRequest request = new SellItemsRequest();
         request.setRequests(new ArrayList<>());
         SellItemRequest unknownProductRequest = new SellItemRequest();
