@@ -3,6 +3,7 @@ package it.gabrieletondi.telldontaskkata.domain;
 import java.math.BigDecimal;
 
 import static java.math.BigDecimal.valueOf;
+import static java.math.RoundingMode.CEILING;
 import static java.math.RoundingMode.HALF_UP;
 
 public class Product {
@@ -35,25 +36,24 @@ public class Product {
     }
 
     public BigDecimal getUnitaryTax() {
-        return price.divide(valueOf(100))
-                .multiply(category
-                        .getTaxPercentage())
+        return price.divide(BigDecimal.valueOf(100))
+                .multiply(category.getTaxPercentage())
                 .setScale(2, HALF_UP);
+
     }
+
 
     public BigDecimal getUnitaryTaxedAmount() {
         BigDecimal unitaryTax = getUnitaryTax();
-
-        return price.add(unitaryTax)
-                .setScale(2, HALF_UP);
+        return price.add(unitaryTax).setScale(2, HALF_UP);
     }
 
     public BigDecimal getTaxedAmount(int quantity) {
         BigDecimal unitaryTaxedAmount = getUnitaryTaxedAmount();
 
-        return unitaryTaxedAmount.multiply(
-                BigDecimal.valueOf(quantity)
-                .setScale(2, HALF_UP));
+        return unitaryTaxedAmount.multiply(BigDecimal.valueOf(quantity))
+                .setScale(2, HALF_UP);
+
     }
 
     public BigDecimal getTaxAmount(int quantity) {
