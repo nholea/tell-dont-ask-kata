@@ -21,7 +21,7 @@ public class OrderApprovalUseCase {
             throw new ShippedOrdersCannotBeChangedException();
         }
 
-        if (request.isApproved() && order.getStatus().equals(OrderStatus.REJECTED)) {
+        if (request.isApproved() && isRejected(order)) {
             throw new RejectedOrderCannotBeApprovedException();
         }
 
@@ -31,6 +31,10 @@ public class OrderApprovalUseCase {
 
         order.setStatus(request.isApproved() ? OrderStatus.APPROVED : OrderStatus.REJECTED);
         orderRepository.save(order);
+    }
+
+    private static boolean isRejected(Order order) {
+        return order.getStatus().equals(OrderStatus.REJECTED);
     }
 
     private static boolean isShipped(Order order) {
