@@ -3,6 +3,8 @@ package it.gabrieletondi.telldontaskkata.domain;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static it.gabrieletondi.telldontaskkata.domain.OrderStatus.*;
+
 public class Order {
     private BigDecimal total;
     private String currency;
@@ -10,18 +12,6 @@ public class Order {
     private BigDecimal tax;
     private OrderStatus status;
     private int id;
-
-    public static boolean isApproved(Order order) {
-        return order.getStatus().equals(OrderStatus.APPROVED);
-    }
-
-    public static boolean isRejected(Order order) {
-        return order.getStatus().equals(OrderStatus.REJECTED);
-    }
-
-    public static boolean isShipped(Order order) {
-        return order.getStatus().equals(OrderStatus.SHIPPED);
-    }
 
     public BigDecimal getTotal() {
         return total;
@@ -69,5 +59,17 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isApproved() {
+        return status.equals(APPROVED);
+    }
+
+    public boolean isRejected() {
+        return status.equals(REJECTED);
+    }
+
+    public boolean isShipped() {
+        return status.equals(SHIPPED);
     }
 }

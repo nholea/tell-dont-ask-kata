@@ -17,15 +17,15 @@ public class OrderApprovalUseCase {
     public void run(OrderApprovalRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
-        if (Order.isShipped(order)) {
+        if (order.isShipped()) {
             throw new ShippedOrdersCannotBeChangedException();
         }
 
-        if (request.isApproved() && Order.isRejected(order)) {
+        if (request.isApproved() && order.isRejected()) {
             throw new RejectedOrderCannotBeApprovedException();
         }
 
-        if (!request.isApproved() && Order.isApproved(order)) {
+        if (!request.isApproved() && order.isApproved()) {
             throw new ApprovedOrderCannotBeRejectedException();
         }
 
