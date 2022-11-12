@@ -17,21 +17,6 @@ public class Order {
     private OrderStatus status;
     private int id;
 
-    public static void approve(Order order, boolean isApprovedRequest) {
-        if (order.isShipped()) {
-            throw new ShippedOrdersCannotBeChangedException();
-        }
-
-        if (isApprovedRequest && order.isRejected()) {
-            throw new RejectedOrderCannotBeApprovedException();
-        }
-
-        if (isApprovedRequest && order.isApproved()) {
-            throw new ApprovedOrderCannotBeRejectedException();
-        }
-        order.setStatus(isApprovedRequest ? APPROVED : REJECTED);
-    }
-
     public BigDecimal getTotal() {
         return total;
     }
@@ -90,5 +75,20 @@ public class Order {
 
     public boolean isShipped() {
         return status.equals(SHIPPED);
+    }
+
+    public void approve(boolean isApprovedRequest) {
+        if (isShipped()) {
+            throw new ShippedOrdersCannotBeChangedException();
+        }
+
+        if (isApprovedRequest && isRejected()) {
+            throw new RejectedOrderCannotBeApprovedException();
+        }
+
+        if (!isApprovedRequest && isApproved()) {
+            throw new ApprovedOrderCannotBeRejectedException();
+        }
+        status = isApprovedRequest ? APPROVED : REJECTED;
     }
 }
