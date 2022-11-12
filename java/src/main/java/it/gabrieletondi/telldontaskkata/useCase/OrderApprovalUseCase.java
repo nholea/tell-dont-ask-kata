@@ -17,15 +17,15 @@ public class OrderApprovalUseCase {
     public void run(OrderApprovalRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
-        if (isShipped(order)) {
+        if (Order.isShipped(order)) {
             throw new ShippedOrdersCannotBeChangedException();
         }
 
-        if (request.isApproved() && isRejected(order)) {
+        if (request.isApproved() && Order.isRejected(order)) {
             throw new RejectedOrderCannotBeApprovedException();
         }
 
-        if (!request.isApproved() && isApproved(order)) {
+        if (!request.isApproved() && Order.isApproved(order)) {
             throw new ApprovedOrderCannotBeRejectedException();
         }
 
@@ -33,15 +33,4 @@ public class OrderApprovalUseCase {
         orderRepository.save(order);
     }
 
-    private static boolean isApproved(Order order) {
-        return order.getStatus().equals(OrderStatus.APPROVED);
-    }
-
-    private static boolean isRejected(Order order) {
-        return order.getStatus().equals(OrderStatus.REJECTED);
-    }
-
-    private static boolean isShipped(Order order) {
-        return order.getStatus().equals(OrderStatus.SHIPPED);
-    }
 }

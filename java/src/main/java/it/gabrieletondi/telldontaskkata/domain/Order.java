@@ -11,6 +11,18 @@ public class Order {
     private OrderStatus status;
     private int id;
 
+    public static boolean isApproved(Order order) {
+        return order.getStatus().equals(OrderStatus.APPROVED);
+    }
+
+    public static boolean isRejected(Order order) {
+        return order.getStatus().equals(OrderStatus.REJECTED);
+    }
+
+    public static boolean isShipped(Order order) {
+        return order.getStatus().equals(OrderStatus.SHIPPED);
+    }
+
     public BigDecimal getTotal() {
         return total;
     }
