@@ -37,8 +37,6 @@ public class OrderCreationUseCase {
                 throw new UnknownProductException();
             }
             else {
-                final BigDecimal unitaryTax = product.getUnitaryTax();
-                final BigDecimal unitaryTaxedAmount = product.getUnitaryTaxedAmount();
                 final BigDecimal taxedAmount = product.getTaxedAmount(itemRequest.getQuantity());
                 final BigDecimal taxAmount = product.getTaxAmount(itemRequest.getQuantity());
 
