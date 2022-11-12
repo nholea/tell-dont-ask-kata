@@ -46,7 +46,7 @@ public class OrderItem {
     }
 
     public static OrderItem createOrderItem(SellItemRequest itemRequest, Product product) {
-        final BigDecimal unitaryTax = product.getPrice().divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP);
+        final BigDecimal unitaryTax = getUnitaryTax(product);
         final BigDecimal unitaryTaxedAmount = product.getPrice().add(unitaryTax).setScale(2, HALF_UP);
         final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
         final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
@@ -57,5 +57,13 @@ public class OrderItem {
         orderItem.setTaxedAmount(taxedAmount);
 
         return orderItem;
+    }
+
+    private static BigDecimal getUnitaryTax(Product product) {
+        return product.getPrice()
+                .divide(valueOf(100))
+                .multiply(product.getCategory()
+                        .getTaxPercentage())
+                .setScale(2, HALF_UP);
     }
 }
