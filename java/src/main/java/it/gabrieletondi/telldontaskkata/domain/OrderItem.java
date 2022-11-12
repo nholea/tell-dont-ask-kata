@@ -45,18 +45,4 @@ public class OrderItem {
         this.tax = tax;
     }
 
-    public static OrderItem createOrderItem(SellItemRequest itemRequest, Product product) {
-        final BigDecimal unitaryTax = product.getUnitaryTax();
-        final BigDecimal unitaryTaxedAmount = Product.getUnitaryTaxedAmount(product, unitaryTax);
-        final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
-        final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
-        final OrderItem orderItem = new OrderItem();
-        orderItem.setProduct(product);
-        orderItem.setQuantity(itemRequest.getQuantity());
-        orderItem.setTax(taxAmount);
-        orderItem.setTaxedAmount(taxedAmount);
-
-        return orderItem;
-    }
-
 }

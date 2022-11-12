@@ -10,10 +10,6 @@ public class Product {
     private BigDecimal price;
     private Category category;
 
-    public static BigDecimal getUnitaryTaxedAmount(Product product, BigDecimal unitaryTax) {
-        return product.getPrice().add(unitaryTax).setScale(2, HALF_UP);
-    }
-
     public String getName() {
         return name;
     }
@@ -42,6 +38,12 @@ public class Product {
         return price.divide(valueOf(100))
                 .multiply(category
                         .getTaxPercentage())
+                .setScale(2, HALF_UP);
+    }
+
+    public BigDecimal getUnitaryTaxedAmount() {
+        BigDecimal unitaryTax = getUnitaryTax();
+        return price.add(unitaryTax)
                 .setScale(2, HALF_UP);
     }
 }
