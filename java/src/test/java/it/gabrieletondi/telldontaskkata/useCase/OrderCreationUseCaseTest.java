@@ -6,6 +6,7 @@ import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
 import it.gabrieletondi.telldontaskkata.domain.Product;
 import it.gabrieletondi.telldontaskkata.doubles.InMemoryProductCatalog;
 import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
+import it.gabrieletondi.telldontaskkata.exception.UnknownProductException;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
 
 import java.math.BigDecimal;

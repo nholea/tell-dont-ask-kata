@@ -8,6 +8,8 @@ import it.gabrieletondi.telldontaskkata.doubles.TestShipmentService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import it.gabrieletondi.telldontaskkata.exception.OrderCannotBeShippedException;
+import it.gabrieletondi.telldontaskkata.exception.OrderCannotBeShippedTwiceException;
 import org.junit.jupiter.api.Test;
 
 public class OrderShipmentUseCaseTest {

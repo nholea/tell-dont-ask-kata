@@ -7,6 +7,9 @@ import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import it.gabrieletondi.telldontaskkata.exception.ApprovedOrderCannotBeRejectedException;
+import it.gabrieletondi.telldontaskkata.exception.RejectedOrderCannotBeApprovedException;
+import it.gabrieletondi.telldontaskkata.exception.ShippedOrdersCannotBeChangedException;
 import org.junit.jupiter.api.Test;
 
 public class OrderApprovalUseCaseTest {
