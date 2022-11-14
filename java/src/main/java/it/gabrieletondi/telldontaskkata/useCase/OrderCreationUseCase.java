@@ -6,6 +6,7 @@ import it.gabrieletondi.telldontaskkata.domain.Product;
 import it.gabrieletondi.telldontaskkata.exception.UnknownProductException;
 import it.gabrieletondi.telldontaskkata.repository.OrderRepository;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
+import java.util.List;
 
 import static java.math.BigDecimal.valueOf;
 
@@ -20,8 +21,8 @@ public class OrderCreationUseCase {
 
     public void run(SellItemsRequest request) {
         Order order = new Order();
-
-        for (SellItemRequest itemRequest : request.getRequests()) {
+        List<SellItemRequest> requests = request.getRequests();
+        for (SellItemRequest itemRequest : requests) {
             Product product = productCatalog.getByName(itemRequest.getProductName());
 
             if (product == null) {
